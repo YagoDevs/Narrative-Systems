@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 9f7329fc359bcb142903110299fcda96, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USETERRAINCOLOR
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -76,6 +77,10 @@ Material:
         m_Texture: {fileID: 8400000, guid: 1d66ad2c2f48f5a43adc4301a0814a11, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WindTexture:
+        m_Texture: {fileID: 2800000, guid: 3f07f7a4cb9f5fc45a0c231bef9709dc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -110,7 +115,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightBlend: 1.19
+    - _HeightBlend: 19.65
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -125,6 +130,11 @@ Material:
     - _Surface: 0
     - _TerrainOffset: 0
     - _TerrainSize: 50
+    - _USETERRAINCOLOR: 1
+    - _WindHeight: 0.5
+    - _WindIntensity: 0.2
+    - _WindNoiseSpeed: 1
+    - _WindSpeed: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -135,7 +145,10 @@ Material:
     - _FarColor: {r: 0.1254902, g: 0.68235296, b: 0.2509804, a: 0}
     - _NearColor: {r: 0.64705884, g: 1, b: 0.37254903, a: 0}
     - _NearFarRange: {r: 3.1, g: 17.79, b: 0, a: 0}
+    - _ShaddowColor: {r: 1, g: 0.06666667, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _WindNoiseContrast: {r: 0, g: 1, b: 0, a: 0}
+    - _WindNoiseScale: {r: 40, g: 100, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5693851463014831297
