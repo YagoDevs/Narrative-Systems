@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GrassMat
-  m_Shader: {fileID: -6465566751694194690, guid: 9f7329fc359bcb142903110299fcda96, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 89c3bd6705154c2429885c3e6f94af16, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -131,8 +131,11 @@ Material:
     - _TerrainOffset: 0
     - _TerrainSize: 50
     - _USETERRAINCOLOR: 1
+    - _WindAmplitude: 0.05
+    - _WindFrequency: 1
     - _WindHeight: 0.5
     - _WindIntensity: 0.2
+    - _WindNoiseMask: 1
     - _WindNoiseSpeed: 1
     - _WindSpeed: 0.1
     - _WorkflowMode: 1
