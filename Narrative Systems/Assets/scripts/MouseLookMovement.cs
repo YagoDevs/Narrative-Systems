@@ -10,6 +10,12 @@ public class MouseLookMovement : MonoBehaviour
     [Tooltip("Velocidade de deslocamento em m/s.")]
     public float moveSpeed = 5f;
 
+    [Tooltip("Multiplicador de velocidade ao segurar a tecla de corrida.")]
+    public float sprintMultiplier = 1.6f;
+
+    [Tooltip("Tecla usada para correr.")]
+    public KeyCode sprintKey = KeyCode.LeftShift;
+
     [Tooltip("Força da gravidade usada para manter o personagem no chão.")]
     public float gravity = -20f;
 
@@ -89,6 +95,12 @@ public class MouseLookMovement : MonoBehaviour
 
         Vector3 move = (transform.forward * inputZ + transform.right * inputX).normalized;
 
+        float speed = moveSpeed;
+        if (Input.GetKey(sprintKey))
+        {
+            speed *= sprintMultiplier;
+        }
+
         if (controller.isGrounded && verticalSpeed < 0f)
         {
             verticalSpeed = -2f; // mantém colado no chão
@@ -96,7 +108,7 @@ public class MouseLookMovement : MonoBehaviour
 
         verticalSpeed += gravity * Time.deltaTime;
 
-        Vector3 velocity = move * moveSpeed;
+        Vector3 velocity = move * speed;
         velocity.y = verticalSpeed;
 
         controller.Move(velocity * Time.deltaTime);
