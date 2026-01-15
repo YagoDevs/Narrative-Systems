@@ -406,6 +406,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73911756}
   m_CullTransparentMesh: 1
+--- !u!1 &117101427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 117101428}
+  m_Layer: 0
+  m_Name: FireballSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &117101428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117101427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2, y: 0.151, z: 0.527}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1310397501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120629901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,7 +2152,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 066c95c2ca2a1485d939bb7ba0a10da5, type: 2}
+      objectReference: {fileID: 9100000, guid: 725a8d67761f548649449ccad7f9b5d2, type: 2}
     - target: {fileID: 5866666021909216657, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
       propertyPath: m_WarningMessage
       value: 
@@ -2392,6 +2423,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 410509996}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 117101428}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
       insertIndex: -1
@@ -2411,6 +2445,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1310397507}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1310397508}
   m_SourcePrefab: {fileID: 100100000, guid: d19de20c0986b5f4091c7c89fc563dd1, type: 3}
 --- !u!95 &361249089 stripped
 Animator:
@@ -6208,6 +6245,44 @@ MonoBehaviour:
   runTrigger: isRunning
   animSpeedDamp: 2.4
   logAnimationWarnings: 1
+--- !u!114 &1310397508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943342293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788e5e8d6c4b74d99bcdbfef8aa11adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 2
+  attackCooldown: 0.5
+  baseDamage: 10
+  altAttackRange: 2.6
+  altAttackCooldown: 0.75
+  altBaseDamage: 14
+  altAttackWindup: 0.2
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  attackIsFireball: 1
+  fireballPrefab: {fileID: 821408713193206791, guid: 438d45cc948b04181890006e346c000b, type: 3}
+  fireballSpawnPoint: {fileID: 117101428}
+  fireballSpeed: 7.7
+  fireballSpawnForwardOffset: 1.1
+  fireballAttackWindup: 0.6
+  altAttackIsFireball: 0
+  animator: {fileID: 361249089}
+  attack1Trigger: Attack1
+  attack2Trigger: Attack2
+  audioSource: {fileID: 0}
+  attack1Sfx: {fileID: 0}
+  attack2Sfx: {fileID: 0}
+  fireballLaunchSfx: {fileID: 0}
+  sfxVolume: 0.9
+  logAttacks: 1
 --- !u!1 &1312455080
 GameObject:
   m_ObjectHideFlags: 0
