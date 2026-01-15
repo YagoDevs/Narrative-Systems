@@ -609,7 +609,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 78913f4de940a4f93ab5e616890df1d1, type: 2}
   overrides: []
   audioSource: {fileID: 0}
-  questCompleteSfx: {fileID: 0}
+  questCompleteSfx: {fileID: 8300000, guid: 008c683b2c2114a0b8da90e3b4617754, type: 3}
   sfxVolume: 0.9
   endgameDelaySeconds: 3
 --- !u!4 &175358798
@@ -6195,7 +6195,7 @@ MonoBehaviour:
   damageMultiplierPerLevel: 0.12
   maxHPPerLevel: 10
   audioSource: {fileID: 0}
-  levelUpSfx: {fileID: 0}
+  levelUpSfx: {fileID: 8300000, guid: 802b1b0ca3fd74cd59ad6921eebd5ec7, type: 3}
   sfxVolume: 0.9
 --- !u!114 &1310397506
 MonoBehaviour:
@@ -6278,8 +6278,8 @@ MonoBehaviour:
   attack1Trigger: Attack1
   attack2Trigger: Attack2
   audioSource: {fileID: 0}
-  attack1Sfx: {fileID: 0}
-  attack2Sfx: {fileID: 0}
+  attack1Sfx: {fileID: 8300000, guid: 717db2abedb234634b6652d18d280f8d, type: 3}
+  attack2Sfx: {fileID: 8300000, guid: 717db2abedb234634b6652d18d280f8d, type: 3}
   fireballLaunchSfx: {fileID: 0}
   sfxVolume: 0.9
   logAttacks: 1

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 408ac80644fcd432dbba1120f431330c, type: 3}
-  m_Name: EnemyConfig_Goblin
+  m_Name: EnemyConfig_Boss
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
-  enemyId: goblin
-  displayName: Goblin
-  isBoss: 0
-  maxHP: 20
+  enemyId: boss
+  displayName: Boss
+  isBoss: 1
+  maxHP: 200
   contactDamage: 5
-  moveSpeed: 1.39
+  moveSpeed: 2
   attackRange: 1.6
   attackCooldown: 1
-  xpReward: 20
+  xpReward: 5
   drops: []
