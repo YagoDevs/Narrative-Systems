@@ -40,6 +40,21 @@ public class SimpleMovement : MonoBehaviour
         if (controller == null)
             controller = gameObject.AddComponent<CharacterController>();
 
+        // Camera reference helper (so you don't have to manually drag it every time).
+        // This expects the scene camera to be tagged as MainCamera.
+        if (cameraTransform == null)
+        {
+            var mainCam = Camera.main;
+            if (mainCam != null)
+                cameraTransform = mainCam.transform;
+            else
+                Debug.LogWarning("SimpleMovement: cameraTransform não foi atribuído e não existe Camera com Tag 'MainCamera' na cena.");
+        }
+        else if (cameraTransform == transform)
+        {
+            Debug.LogWarning("SimpleMovement: cameraTransform está apontando pro próprio Player. Arraste a Camera (ou uma CinemachineCamera) aqui.");
+        }
+
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
 
