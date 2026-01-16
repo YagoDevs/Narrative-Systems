@@ -40,6 +40,9 @@ public class BossController : MonoBehaviour
     [Header("Boss Settings")]
     public EnemyHealth enemyHealth; // optional, for death checks
 
+    [Header("Debug")]
+    public bool debugLogs = false;
+
     readonly Dictionary<BossAttackDefinition, float> nextReadyAt = new Dictionary<BossAttackDefinition, float>();
     Coroutine currentAttack;
     float move01;
