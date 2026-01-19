@@ -2913,8 +2913,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 2.088635}
-  m_Center: {x: 0, y: 0, z: 0.54431725}
+  m_Size: {x: 0.6459805, y: 1, z: 2.088635}
+  m_Center: {x: 0.17700978, y: 0, z: 0.54431725}
 --- !u!23 &550622267
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3872,7 +3872,8 @@ MonoBehaviour:
   targetImage: {fileID: 1634588236}
   uiRootPanel: {fileID: 0}
   autoFindDirectors: 1
-  autoFindUI: 1
+  autoFindUI: 0
+  disableUiRootDuringTimelines: 0
 --- !u!4 &797776642
 Transform:
   m_ObjectHideFlags: 0
@@ -6153,7 +6154,6 @@ GameObject:
   - component: {fileID: 1522924838}
   - component: {fileID: 1522924837}
   - component: {fileID: 1522924841}
-  - component: {fileID: 1522924842}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6269,32 +6269,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1522924842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522924836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea575f57571164ec498ebbd8448a0418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boss: {fileID: 0}
-  bossHealth: {fileID: 0}
-  autoFindBoss: 1
-  reacquireInterval: 1
-  targetCanvas: {fileID: 0}
-  root: {fileID: 0}
-  hpSlider: {fileID: 0}
-  nameText: {fileID: 0}
-  hpText: {fileID: 0}
-  anchoredPos: {x: 0, y: -40}
-  size: {x: 720, y: 70}
-  hideWhenNoBoss: 1
-  hideWhenDead: 1
-  showOnlyWhenBossActive: 1
 --- !u!1 &1526988643
 GameObject:
   m_ObjectHideFlags: 0

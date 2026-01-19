@@ -25,6 +25,10 @@ public class TimelineUIController : MonoBehaviour
     [Tooltip("Se marcado, procura automaticamente o Canvas principal")]
     public bool autoFindUI = true;
 
+    [Header("UI Behavior")]
+    [Tooltip("Se true, este script desativa/reativa o uiRootPanel durante timelines. Desmarque para NÃO mexer no seu Canvas.")]
+    public bool disableUiRootDuringTimelines = false;
+
     private bool wasTimeline1Playing;
     private bool wasAnyTimelinePlaying;
 
@@ -113,6 +117,7 @@ public class TimelineUIController : MonoBehaviour
     void UpdateUIVisibility()
     {
         if (uiRootPanel == null) return;
+        if (!disableUiRootDuringTimelines) return;
 
         // Desativa toda a UI quando timeline1 OU timeline2 estão rodando
         bool shouldHideUI = wasAnyTimelinePlaying;
