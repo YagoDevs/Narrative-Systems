@@ -21,6 +21,13 @@ public class PlayerCombat : MonoBehaviour
     public float fireballSpawnForwardOffset = 1.1f;
     public float fireballAttackWindup = 0.2f; // delay before fireball launch (sync with animation)
 
+    [Header("Aiming")]
+    [Tooltip("Se true, a direção do ataque (melee/fireball) vem da câmera (Cinemachine output), não do forward do personagem.")]
+    public bool aimFromCamera = true;
+    [Tooltip("Gira o personagem para a direção da mira quando atacar (ajuda MUITO com FreeLook).")]
+    public bool rotatePlayerTowardAimOnAttack = true;
+    [Min(0f)] public float rotateTowardAimSpeed = 18f;
+
     [Header("Alt Attack: Fireball (optional)")]
     public bool altAttackIsFireball = false;
 
@@ -38,6 +45,10 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Feedback (optional)")]
     public bool logAttacks = true;
+    public bool logMisses = true;
+    public bool showCombatTextOnHit = true;
+    public bool showCombatTextOnMiss = false;
+    public string missText = "MISS";
 
     float nextAttackTime;
     float nextAltAttackTime;
@@ -91,7 +102,8 @@ public class PlayerCombat : MonoBehaviour
         PlaySfx(attack1Sfx, transform.position);
 
         // Simple melee: hit any EnemyHealth near the player
-        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, enemyLayers);
+        // Include triggers too (robust across different collider setups).
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, enemyLayers, QueryTriggerInteraction.Collide);
         for (int i = 0; i < hits.Length; i++)
         {
             var eh = hits[i].GetComponentInParent<EnemyHealth>();
@@ -103,10 +115,17 @@ public class PlayerCombat : MonoBehaviour
                     string n = (eh.config != null && !string.IsNullOrEmpty(eh.config.displayName)) ? eh.config.displayName : eh.name;
                     Debug.Log($"Hit confirmed on {n}. Enemy HP: {eh.CurrentHP}/{eh.MaxHP}");
                 }
+                if (showCombatTextOnHit && CombatTextManager.Instance != null)
+                    CombatTextManager.Instance.SpawnWorldText(hits[i].transform.position + Vector3.up * 2f, "HIT", new Color(1f, 0.25f, 0.25f));
                 // 1 target per swing (simple + readable)
                 return;
             }
         }
+
+        if (logMisses)
+            Debug.Log("Player attack MISS (nenhum EnemyHealth dentro do range).");
+        if (showCombatTextOnMiss && CombatTextManager.Instance != null)
+            CombatTextManager.Instance.SpawnWorldText(transform.position + Vector3.up * 2f, missText, new Color(0.6f, 0.7f, 1f));
     }
 
     System.Collections.IEnumerator FireballAttackAfterDelay(int dmg)
@@ -157,7 +176,7 @@ public class PlayerCombat : MonoBehaviour
 
         PlaySfx(attack2Sfx, transform.position);
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, altAttackRange, enemyLayers);
+        Collider[] hits = Physics.OverlapSphere(transform.position, altAttackRange, enemyLayers, QueryTriggerInteraction.Collide);
         for (int i = 0; i < hits.Length; i++)
         {
             var eh = hits[i].GetComponentInParent<EnemyHealth>();
@@ -169,25 +188,37 @@ public class PlayerCombat : MonoBehaviour
                     string n = (eh.config != null && !string.IsNullOrEmpty(eh.config.displayName)) ? eh.config.displayName : eh.name;
                     Debug.Log($"ALT hit confirmed on {n}. Enemy HP: {eh.CurrentHP}/{eh.MaxHP}");
                 }
+                if (showCombatTextOnHit && CombatTextManager.Instance != null)
+                    CombatTextManager.Instance.SpawnWorldText(hits[i].transform.position + Vector3.up * 2f, "HIT", new Color(1f, 0.25f, 0.25f));
                 yield break;
             }
         }
+
+        if (logMisses)
+            Debug.Log("Player ALT attack MISS (nenhum EnemyHealth dentro do range).");
+        if (showCombatTextOnMiss && CombatTextManager.Instance != null)
+            CombatTextManager.Instance.SpawnWorldText(transform.position + Vector3.up * 2f, missText, new Color(0.6f, 0.7f, 1f));
     }
 
     void SpawnFireball(int dmg)
     {
         Vector3 spawnPos;
-        Vector3 dir = transform.forward;
+        Vector3 dir = GetAimDirectionPlanar();
 
         if (fireballSpawnPoint != null)
         {
             spawnPos = fireballSpawnPoint.position;
-            dir = fireballSpawnPoint.forward;
+            // Se não estiver mirando pela câmera, respeita o forward do spawn point.
+            if (!aimFromCamera)
+                dir = fireballSpawnPoint.forward;
         }
         else
         {
             spawnPos = transform.position + Vector3.up * 1.2f + transform.forward * fireballSpawnForwardOffset;
         }
+
+        if (rotatePlayerTowardAimOnAttack)
+            RotatePlayerToward(dir);
 
         var fb = Instantiate(fireballPrefab, spawnPos, Quaternion.LookRotation(dir, Vector3.up));
 
@@ -195,6 +226,32 @@ public class PlayerCombat : MonoBehaviour
         fb.Launch(dir, dmg, fireballSpeed, enemyLayers);
 
         PlaySfx(fireballLaunchSfx != null ? fireballLaunchSfx : attack2Sfx, spawnPos);
+    }
+
+    Vector3 GetAimDirectionPlanar()
+    {
+        // Default: personagem
+        Vector3 dir = transform.forward;
+
+        if (aimFromCamera)
+        {
+            var cam = Camera.main;
+            if (cam != null)
+                dir = cam.transform.forward;
+        }
+
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f)
+            dir = transform.forward;
+        return dir.normalized;
+    }
+
+    void RotatePlayerToward(Vector3 planarDir)
+    {
+        planarDir.y = 0f;
+        if (planarDir.sqrMagnitude < 0.0001f) return;
+        var targetRot = Quaternion.LookRotation(planarDir.normalized, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotateTowardAimSpeed * Time.deltaTime);
     }
 
     void PlaySfx(AudioClip clip, Vector3 pos)

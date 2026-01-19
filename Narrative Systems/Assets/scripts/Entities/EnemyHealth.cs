@@ -25,6 +25,15 @@ public class EnemyHealth : MonoBehaviour
     public bool logHits = true;
     public bool logDeath = true;
 
+    [Header("Audio (optional)")]
+    [Tooltip("Se vazio, tenta usar um AudioSource no inimigo (ou cria um automaticamente).")]
+    public AudioSource audioSource;
+    public AudioClip hitSfx;
+    public AudioClip deathSfx;
+    [Range(0f, 1f)] public float sfxVolume = 0.9f;
+    [Tooltip("Variação de pitch para não ficar repetitivo (0 = sem variação).")]
+    [Range(0f, 0.5f)] public float pitchRandom = 0.08f;
+
     public event Action<int, int> OnHealthChanged; // current, max
     public event Action OnDied;
 
@@ -47,6 +56,7 @@ public class EnemyHealth : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP, 1, MaxHP);
 
         animator = ResolveAnimator(animator);
+        ResolveAudioSource();
 
         CacheOriginalColors();
         OnHealthChanged?.Invoke(currentHP, MaxHP);
@@ -68,6 +78,7 @@ public class EnemyHealth : MonoBehaviour
         currentHP = Mathf.Max(0, currentHP - amount);
         OnHealthChanged?.Invoke(currentHP, MaxHP);
         Flash();
+        PlaySfx(hitSfx);
 
         if (logHits)
         {
@@ -86,6 +97,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (hasDied) return;
         hasDied = true;
+
+        PlaySfx(deathSfx);
 
         if (logDeath)
         {
@@ -246,6 +259,41 @@ public class EnemyHealth : MonoBehaviour
         }
 
         return best != null ? best : anims[0];
+    }
+
+    void ResolveAudioSource()
+    {
+        if (audioSource != null) return;
+        audioSource = GetComponentInChildren<AudioSource>();
+        if (audioSource != null) return;
+
+        // Create a local AudioSource so we can PlayOneShot without needing extra setup.
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 3D by default
+        audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+        audioSource.minDistance = 1f;
+        audioSource.maxDistance = 30f;
+    }
+
+    void PlaySfx(AudioClip clip)
+    {
+        if (clip == null) return;
+        if (sfxVolume <= 0f) return;
+
+        if (audioSource == null)
+            ResolveAudioSource();
+
+        if (audioSource == null) return;
+
+        float basePitch = audioSource.pitch;
+        if (pitchRandom > 0f)
+            audioSource.pitch = basePitch + UnityEngine.Random.Range(-pitchRandom, pitchRandom);
+
+        audioSource.PlayOneShot(clip, sfxVolume);
+
+        // Restore pitch so other sounds (if any) aren't affected.
+        audioSource.pitch = basePitch;
     }
 }
 

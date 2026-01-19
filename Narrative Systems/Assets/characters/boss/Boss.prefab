@@ -1350,6 +1350,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75f683cca4c014b9e99da146cc55fc26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3603745727537459116}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75f683cca4c014b9e99da146cc55fc26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8260851218935945345}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75f683cca4c014b9e99da146cc55fc26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5243641007619167223}
   m_SourcePrefab: {fileID: 100100000, guid: 75f683cca4c014b9e99da146cc55fc26, type: 3}
 --- !u!1 &2138040906459283082 stripped
 GameObject:
@@ -1382,6 +1388,11 @@ MonoBehaviour:
   flashDuration: 0.08
   logHits: 1
   logDeath: 1
+  audioSource: {fileID: 0}
+  hitSfx: {fileID: 8300000, guid: 728d7a0145b0949e0bdc65f6952eed53, type: 3}
+  deathSfx: {fileID: 0}
+  sfxVolume: 0.9
+  pitchRandom: 0.08
 --- !u!114 &3603745727537459116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1414,6 +1425,47 @@ MonoBehaviour:
   animSpeedDamp: 10
   enemyHealth: {fileID: 4986866845352121676}
   debugLogs: 0
+--- !u!65 &8260851218935945345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138040906459283082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.8993661, z: 1}
+  m_Center: {x: 0, y: 0.026132226, z: 0}
+--- !u!114 &5243641007619167223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138040906459283082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca96f947a36e450ba11fbca2dcf3e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHealth: {fileID: 4986866845352121676}
+  successSfx: {fileID: 8300000, guid: 008c683b2c2114a0b8da90e3b4617754, type: 3}
+  sfxVolume: 0.9
+  audioSource: {fileID: 0}
+  showGameCompleteUI: 1
+  title: You won!! Congratulations.
+  body: You defeated the Boss
+  buttonText: Play Again
 --- !u!95 &4611726255678553674 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 75f683cca4c014b9e99da146cc55fc26, type: 3}

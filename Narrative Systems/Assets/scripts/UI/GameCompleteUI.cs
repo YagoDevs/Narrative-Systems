@@ -15,6 +15,8 @@ public static class GameCompleteUI
 
         // Pause gameplay
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         var root = new GameObject(RootName);
         Object.DontDestroyOnLoad(root);
@@ -112,6 +114,8 @@ public static class GameCompleteUI
     static void Restart()
     {
         Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         var idx = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(idx);
 
