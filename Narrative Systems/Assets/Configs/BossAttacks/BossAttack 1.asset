@@ -18,8 +18,8 @@ MonoBehaviour:
   cooldown: 2
   windup: 0.2
   damage: 18
-  range: 12
+  range: 3
   animationTrigger: Attack2
-  aoeRadius: 6
+  aoeRadius: 3
   dashDistance: 6
   dashDuration: 0.2
